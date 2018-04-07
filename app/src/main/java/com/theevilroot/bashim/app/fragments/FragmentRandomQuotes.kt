@@ -58,7 +58,11 @@ class FragmentRandomQuotes : Fragment() {
 
             likeButton.setOnClickListener {
                 if(currentQuote != null) {
-                    app.favorites.add(currentQuote!!)
+                    if(app.favorites.any { it.id == currentQuote!!.id }) {
+                        app.favorites.remove(currentQuote!!)
+                    }else {
+                        app.favorites.add(currentQuote!!)
+                    }
                     updateUI()
                 }
             }
@@ -82,6 +86,7 @@ class FragmentRandomQuotes : Fragment() {
     }
 
     private fun loadToCurrent() {
+        nextButton.isEnabled = false
         nextButton.showProgress(true)
         thread(start = true, block = {
             val last = app.getLast()
@@ -93,6 +98,7 @@ class FragmentRandomQuotes : Fragment() {
             updateUI()
             activity.runOnUiThread {
                 nextButton.showProgress(false)
+                nextButton.isEnabled = true
             }
         })
     }
@@ -116,10 +122,10 @@ class FragmentRandomQuotes : Fragment() {
     }
 
     companion object {
-        fun newInstance(app: SimpleBash, activity:QuotesActivity): FragmentRandomQuotes {
+        fun newInstance(activity:QuotesActivity): FragmentRandomQuotes {
             val frg = FragmentRandomQuotes()
-            frg.app = app
             frg.activity = activity
+            frg.app = activity.app
             return frg
         }
     }

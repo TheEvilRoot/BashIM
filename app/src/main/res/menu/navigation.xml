@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_quotes"
+        android:icon="@drawable/cellphone_text"
+        android:title="@string/quotes_title"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_abyss_top"
+        android:icon="@drawable/lumx"
+        android:title="@string/abyss_top_title"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_random_quotes"
+        android:icon="@drawable/comment_text_multiple_outline"
+        android:title="@string/random_quotes_title"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/navigation_favorites"
+        android:icon="@drawable/heart_outline"
+        android:title="@string/favorites_quotes_title"
+        app:showAsAction="ifRoom" />
+
+</menu>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SimpleBash</string>
+    <string name="quotes_title">Цитаты</string>
+    <string name="random_quotes_title">Рандомные</string>
+    <string name="favorites_quotes_title">Понравившиеся</string>
+    <string name="abyss_top_title">Топ Бездны</string>
 </resources>

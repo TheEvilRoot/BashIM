@@ -36,7 +36,6 @@ class LaunchScreenActivity: AppCompatActivity() {
                     Toast.makeText(this, "Json is NULL", Toast.LENGTH_SHORT).show()
                 }else{
                     val data = json.asJsonObject
-                    app.lastTab = data.get("lastTab").asInt
                     app.lastQuote = data.get("lastQuote").asInt
                     app.favorites = ArrayList(data.get("favorites").asJsonArray.map { it.asJsonObject }.map { Quote(it.get("id").asString, it.get("rate").asString, it.get("content").asString, it.get("url").asString) })
                     runOnUiThread { startActivity(Intent(this, QuotesActivity::class.java)); finish() }
@@ -59,7 +58,6 @@ class LaunchScreenActivity: AppCompatActivity() {
     private fun makeFile(file: File): String {
         file.createNewFile()
         val json = JsonObject()
-        json.addProperty("lastTab", 0)
         json.addProperty("lastQuote", 1)
         json.add("favorites", JsonArray())
         val text = GsonBuilder().setPrettyPrinting().create().toJson(json)
