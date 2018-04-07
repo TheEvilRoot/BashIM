@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/random_quote_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="#000000"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/random_quote_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="right"
+        android:text="[ 1000 ]"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/random_quote_id"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/random_quote_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ut orci mauris. Proin eleifend dignissim elit, eget dapibus justo convallis id. Maecenas suscipit eu velit nec pulvinar. Donec libero nibh, pellentesque non ultricies in, ornare quis ligula. Integer consequat auctor hendrerit. Duis sollicitudin enim sem, ultricies porttitor risus scelerisque et. Donec quis feugiat justo. Nulla facilisi.  Phasellus id lectus id urna malesuada bibendum eu in ligula. Curabitur quis eleifend leo. Aenean ac malesuada mi. Donec sit amet purus dui. In hac habitasse platea dictumst. Etiam cursus egestas ullamcorper. Ut in tincidunt eros, at finibus nunc. Sed erat risus, vehicula nec urna porttitor, posuere ullamcorper ipsum. In turpis tortor, pellentesque at ante a, placerat facilisis nibh. Suspendisse massa purus, egestas ut enim commodo, volutpat pharetra risus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus volutpat, ex sodales aliquam dignissim, velit eros sodales sem, facilisis varius nunc est quis turpis.  Nullam facilisis, urna sed fringilla interdum, neque nibh consectetur sapien, eget suscipit magna enim et massa. Nulla posuere, est eget laoreet mollis, nisi enim porttitor odio, non euismod felis turpis ac ante. Etiam placerat dapibus magna. Ut condimentum velit eu dolor tincidunt, in bibendum velit euismod. Praesent sem mi, convallis at sagittis pretium, rhoncus id risus. Fusce ut rutrum risus, sit amet bibendum velit. Phasellus malesuada at leo at tempor.  Praesent a tellus posuere, congue leo eget, bibendum est. Nulla eget fauci"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/random_quote_id" />
+
+    <view
+        android:id="@+id/random_share_button"
+        class="mbanje.kurt.fabbutton.FabButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:color="?attr/colorPrimary"
+        android:focusable="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:src="@drawable/ic_share_white_18dp"
+        app:fbb_autoStart="false"
+        app:fbb_hideProgressOnComplete="true"
+        app:fbb_progressColor="?attr/colorAccent"
+        app:fbb_progressWidthRatio="0.1"
+        app:fbb_showShadow="true"
+        app:layout_constraintBottom_toTopOf="@+id/random_like_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <view
+        android:id="@+id/random_like_button"
+        class="mbanje.kurt.fabbutton.FabButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:color="?attr/colorPrimary"
+        android:focusable="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:src="@drawable/ic_heart_outline_white_18dp"
+        app:fbb_autoStart="false"
+        app:fbb_hideProgressOnComplete="true"
+        app:fbb_progressColor="?attr/colorAccent"
+        app:fbb_progressWidthRatio="0.1"
+        app:fbb_showShadow="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <view
+        android:id="@+id/random_next_button"
+        class="mbanje.kurt.fabbutton.FabButton"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:color="?attr/colorPrimary"
+        android:focusable="true"
+        android:indeterminate="true"
+        android:max="100"
+        android:src="@drawable/ic_arrow_right_bold_circle_outline_white_24dp"
+        app:fbb_autoStart="false"
+        app:fbb_hideProgressOnComplete="true"
+        app:fbb_progressColor="?attr/colorAccent"
+        app:fbb_progressWidthRatio="0.1"
+        app:fbb_showShadow="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>
