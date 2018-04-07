@@ -1,2 +1,2 @@
 # BashIM
-BashIM application for android
+First stable release is comming soon.
