@@ -1,9 +1,12 @@
 package com.theevilroot.bashim.app
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
@@ -16,12 +19,15 @@ class LaunchScreenActivity: AppCompatActivity() {
 
     lateinit var progressBar: ProgressBar
     lateinit var app: SimpleBash
+    lateinit var errorView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.launch_screen)
 
         progressBar = findViewById(R.id.progressBar)
         app = application as SimpleBash
+        errorView = findViewById(R.id.error_view)
 
         thread(start = true, block = {
             Thread.sleep(4000)
@@ -37,18 +43,25 @@ class LaunchScreenActivity: AppCompatActivity() {
                 }else{
                     val data = json.asJsonObject
                     app.lastQuote = data.get("lastQuote").asInt
+                    app.lastTab = data.get("lastTab").asInt
                     app.favorites = ArrayList(data.get("favorites").asJsonArray.map { it.asJsonObject }.map { Quote(it.get("id").asString, it.get("rate").asString, it.get("content").asString, it.get("url").asString) })
                     runOnUiThread { startActivity(Intent(this, QuotesActivity::class.java)); finish() }
                 }
             }catch (e: Exception) {
                 runOnUiThread { showError(e) }
+                file.delete()
             }
         })
 
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showError(e: Exception) {
-        Toast.makeText(this, "Exception: ${e.javaClass}", Toast.LENGTH_SHORT).show()
+        errorView.text = "Произошла ошибка при загрузке. Мы предусмотрели решение некоторых ошибок.\nПросто перезапустите приложение. Если вы видите это во второй раз, то опишите проблему в HokeyApp в раздел Репортов"
+        errorView.visibility = View.VISIBLE
+        progressBar.isIndeterminate = false
+        progressBar.progress = 100
+        e.printStackTrace()
     }
 
     private fun loadFile(file: File): String {
@@ -59,6 +72,7 @@ class LaunchScreenActivity: AppCompatActivity() {
         file.createNewFile()
         val json = JsonObject()
         json.addProperty("lastQuote", 1)
+        json.addProperty("lastTab", 0)
         json.add("favorites", JsonArray())
         val text = GsonBuilder().setPrettyPrinting().create().toJson(json)
         file.writeText(text)

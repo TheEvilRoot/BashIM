@@ -10,20 +10,16 @@ import com.theevilroot.bashim.app.fragments.FragmentRandomQuotes
 
 class BashTabAdapter(fm: FragmentManager,val activity: QuotesActivity) : FragmentPagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment? = when (position) {
-        0 -> FragmentQuotes.newInstance(activity)
-        1 -> FragmentRandomQuotes.newInstance(activity)
-        2 -> FragmentFavorites.newInstance(activity)
-        3 -> FragmentAbyssTop.newInstance(activity)
-        else -> null
+    override fun getItem(position: Int): Fragment? {
+        val holder = activity.navigationFragments.filter { it.id == position }.getOrNull(0)
+                ?: return null
+        return holder.fragment
     }
 
-    override fun getPageTitle(position: Int): CharSequence = when (position) {
-        0 -> activity.getString(R.string.quotes_title)
-        1 -> activity.getString(R.string.random_quotes_title)
-        2 -> activity.getString(R.string.favorites_quotes_title)
-        3 -> activity.getString(R.string.abyss_top_title)
-        else -> ""
+    override fun getPageTitle(position: Int): CharSequence {
+        val holder = activity.navigationFragments.filter { it.id == position }.getOrNull(0)
+                ?: return "[INVALID]"
+        return activity.getString(holder.title)
     }
 
     override fun getCount(): Int = 4

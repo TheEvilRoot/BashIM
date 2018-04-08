@@ -121,6 +121,15 @@ class FragmentRandomQuotes : Fragment() {
         }
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        try {
+            if (isVisibleToUser)
+                updateUI()
+        }catch (e: Exception){}
+    }
+
+
     companion object {
         fun newInstance(activity:QuotesActivity): FragmentRandomQuotes {
             val frg = FragmentRandomQuotes()
