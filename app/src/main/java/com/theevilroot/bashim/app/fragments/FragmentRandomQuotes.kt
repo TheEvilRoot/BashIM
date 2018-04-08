@@ -90,11 +90,13 @@ class FragmentRandomQuotes : Fragment() {
         nextButton.showProgress(true)
         thread(start = true, block = {
             val last = app.getLast()
-            var rand = Random().nextInt(last)+1
-            while(!app.isQuoteExists(rand)) {
+            var rand: Int
+            var opt: Quote?
+            do {
                 rand = Random().nextInt(last)+1
-            }
-            currentQuote = app.loadQuoteById(rand)
+                opt = app.loadQuoteById(rand)
+            } while (opt == null)
+            currentQuote = opt
             updateUI()
             activity.runOnUiThread {
                 nextButton.showProgress(false)
