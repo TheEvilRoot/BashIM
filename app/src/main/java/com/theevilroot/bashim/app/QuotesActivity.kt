@@ -23,7 +23,7 @@ import java.io.File
 class QuotesActivity : AppCompatActivity() {
 
     lateinit var toolbar: Toolbar
-    lateinit var viewPager: ViewPager
+    lateinit var viewPager: NonSwipeViewPager
     lateinit var app: SimpleBash
     lateinit var bottomNavigationView: BottomNavigationView
 
@@ -53,6 +53,7 @@ class QuotesActivity : AppCompatActivity() {
         val adapter = BashTabAdapter(supportFragmentManager, this)
 
         viewPager.adapter = adapter
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener {item ->
 

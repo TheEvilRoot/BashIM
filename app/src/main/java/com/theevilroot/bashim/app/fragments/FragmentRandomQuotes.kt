@@ -15,6 +15,7 @@ import org.jsoup.Jsoup
 import java.util.*
 import kotlin.concurrent.thread
 import android.content.Intent
+import android.widget.QuickContactBadge
 import com.theevilroot.bashim.app.Quote
 import com.theevilroot.bashim.app.QuotesActivity
 import com.theevilroot.bashim.app.R
