@@ -3,7 +3,9 @@ package com.theevilroot.bashim.app
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -14,6 +16,13 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.io.File
 import kotlin.concurrent.thread
+import org.apache.commons.lang.exception.ExceptionUtils
+import android.R.attr.label
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
+
+
 
 class LaunchScreenActivity: AppCompatActivity() {
 
@@ -30,7 +39,7 @@ class LaunchScreenActivity: AppCompatActivity() {
         errorView = findViewById(R.id.error_view)
 
         thread(start = true, block = {
-            Thread.sleep(4000)
+            Thread.sleep(1000)
             val file = File(filesDir, "simplebash.json")
             try {
                 val json = JsonParser().parse(if (!file.exists()) {
@@ -57,7 +66,14 @@ class LaunchScreenActivity: AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun showError(e: Exception) {
-        errorView.text = "Произошла ошибка при загрузке. Мы предусмотрели решение некоторых ошибок.\nПросто перезапустите приложение. Если вы видите это во второй раз, то опишите проблему в HokeyApp в раздел Репортов"
+        errorView.setOnClickListener {
+            AlertDialog.Builder(this).setMessage(ExceptionUtils.getFullStackTrace(e)).setPositiveButton("Скопировать", {di, i ->
+                val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("tracktrace", ExceptionUtils.getFullStackTrace(e))
+                clipboard.primaryClip = clip
+            }).create().show()
+        }
+        errorView.text = "При загрузке приложения произошла ошибка.\nПопробуйте перезапустить приложение, если ошибка появится и впредь, то отпрвьте ~этот текст~ в раздел Репортов в HokeyApp"
         errorView.visibility = View.VISIBLE
         progressBar.isIndeterminate = false
         progressBar.progress = 100
