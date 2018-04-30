@@ -3,10 +3,6 @@ package com.theevilroot.bashim.app
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import com.theevilroot.bashim.app.fragments.FragmentAbyssTop
-import com.theevilroot.bashim.app.fragments.FragmentFavorites
-import com.theevilroot.bashim.app.fragments.FragmentQuotes
-import com.theevilroot.bashim.app.fragments.FragmentRandomQuotes
 
 class BashTabAdapter(fm: FragmentManager,val activity: QuotesActivity) : FragmentPagerAdapter(fm) {
 
@@ -22,5 +18,5 @@ class BashTabAdapter(fm: FragmentManager,val activity: QuotesActivity) : Fragmen
         return activity.getString(holder.title)
     }
 
-    override fun getCount(): Int = 4
+    override fun getCount(): Int = activity.navigationFragments.size
 }

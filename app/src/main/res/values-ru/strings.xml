@@ -1,0 +1,12 @@
+<resources>
+    <string name="quotes_title">Все цитаты</string>
+    <string name="random_quotes_title">Рандомные цитаты</string>
+    <string name="favorites_quotes_title">Любимые цитаты</string>
+    <string name="load_error_text">Во время загрузки произошла ошибка. Попробуйте перезапустить приложение или написать в поддержку</string>
+    <string name="default_error_text">Произошла непредвиденная ошибка. Нажмите скопировать и отправте ошибку в поддержку прилоежния</string>
+    <string name="copy_text">Копировать</string>
+    <string name="quote_error_text">Во время загрузки цитаты произошла ошибка. Проверьте ваше интернет соединение или обратитесь в поддержку</string>
+    <string name="error_title">Ошибка!</string>
+    <string name="no_favotites_text">Сейчас у вас нет понравившихся цитат.Нажмите на сердечко в левом нижнем углу, что бы добавить понравившуюся цитату</string>
+    <string name="pages_error">Невозможно загрузить страницы. Проверьте ваше интернет соениение</string>
+</resources>

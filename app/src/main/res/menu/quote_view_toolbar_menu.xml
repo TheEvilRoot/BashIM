@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/quote_view_like"
+        android:title="@string/like"
+        android:icon="@drawable/heart_outline" />
+    <item android:id="@+id/quote_view_share"
+        android:title="@string/share"
+        android:icon="@drawable/share" />
+
+</menu>

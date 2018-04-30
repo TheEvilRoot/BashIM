@@ -1,24 +1,22 @@
 package com.theevilroot.bashim.app
-import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.IdRes
 import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.view.ViewPager
+import android.support.v4.view.MenuCompat
 import android.support.v7.app.AlertDialog
+import android.support.v7.view.menu.MenuBuilder
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import com.theevilroot.bashim.app.fragments.FragmentAbyssTop
 import com.theevilroot.bashim.app.fragments.FragmentFavorites
 import com.theevilroot.bashim.app.fragments.FragmentQuotes
 import com.theevilroot.bashim.app.fragments.FragmentRandomQuotes
 import java.io.File
+import kotlin.concurrent.thread
 
 class QuotesActivity : AppCompatActivity() {
 
@@ -34,29 +32,19 @@ class QuotesActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quotes)
 
         app = application as SimpleBash
-
-        navigationFragments = arrayOf(
-                FragmentHolder(0, R.id.navigation_quotes, FragmentQuotes.newInstance(this), R.string.quotes_title),
-                FragmentHolder(1, R.id.navigation_abyss_top, FragmentAbyssTop.newInstance(this), R.string.abyss_top_title),
-                FragmentHolder(2, R.id.navigation_random_quotes, FragmentRandomQuotes.newInstance(this), R.string.random_quotes_title),
-                FragmentHolder(3, R.id.navigation_favorites, FragmentFavorites.newInstance(this), R.string.favorites_quotes_title)
-        )
-
+        viewPager = findViewById(R.id.view_pager)
+        bottomNavigationView = findViewById(R.id.bottom_navigation)
         toolbar = findViewById(R.id.toolbar)
 
+        navigationFragments = arrayOf(
+                FragmentHolder(0, R.id.navigation_quotes, FragmentQuotes.newInstance(this), R.string.quotes_title, R.menu.toolbar_menu),
+                FragmentHolder(1, R.id.navigation_random_quotes, FragmentRandomQuotes.newInstance(this), R.string.random_quotes_title, R.menu.toolbar_menu),
+                FragmentHolder(2, R.id.navigation_favorites, FragmentFavorites.newInstance(this), R.string.favorites_quotes_title, R.menu.toolbar_menu_favorite)
+        )
         setSupportActionBar(toolbar)
-
-        viewPager = findViewById(R.id.view_pager)
-
-        bottomNavigationView = findViewById(R.id.bottom_navigation)
-
         val adapter = BashTabAdapter(supportFragmentManager, this)
-
         viewPager.adapter = adapter
-
-
         bottomNavigationView.setOnNavigationItemSelectedListener {item ->
-
             val holder = navigationFragments.filter { it.navigation ==  item.itemId}.getOrNull(0)
                     ?: return@setOnNavigationItemSelectedListener false
             select(holder)
@@ -93,5 +81,19 @@ class QuotesActivity : AppCompatActivity() {
     fun select(holder: FragmentHolder) {
         viewPager.setCurrentItem(holder.id, true)
         title = viewPager.adapter!!.getPageTitle(holder.id)
+        invalidateOptionsMenu()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val holder = navigationFragments.filter { it.navigation ==  bottomNavigationView.selectedItemId}.getOrNull(0)
+                ?: return false
+        menuInflater.inflate(holder.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val holder = navigationFragments.filter { it.navigation ==  bottomNavigationView.selectedItemId}.getOrNull(0)
+                ?: return false
+        return holder.fragment.onOptionsItemSelected(item)
     }
 }

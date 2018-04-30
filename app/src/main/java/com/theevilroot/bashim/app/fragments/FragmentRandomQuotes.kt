@@ -1,5 +1,6 @@
 package com.theevilroot.bashim.app.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
@@ -15,6 +16,9 @@ import org.jsoup.Jsoup
 import java.util.*
 import kotlin.concurrent.thread
 import android.content.Intent
+import android.support.v7.app.AlertDialog
+import android.view.MenuItem
+import android.widget.EditText
 import android.widget.QuickContactBadge
 import com.theevilroot.bashim.app.Quote
 import com.theevilroot.bashim.app.QuotesActivity
@@ -90,22 +94,33 @@ class FragmentRandomQuotes : Fragment() {
         nextButton.isEnabled = false
         nextButton.showProgress(true)
         thread(start = true, block = {
-            val last = app.getLast()
-            var rand: Int
-            var opt: Quote?
-            do {
-                rand = Random().nextInt(last)+1
-                opt = app.loadQuoteById(rand)
-            } while (opt == null)
-            currentQuote = opt
-            updateUI()
-            activity.runOnUiThread {
-                nextButton.showProgress(false)
-                nextButton.isEnabled = true
+            try {
+                if(app.last < 0)
+                    app.last = app.updateLast()
+                var rand: Int
+                var opt: Quote?
+                do {
+                    rand = Random().nextInt(app.last) + 1
+                    opt = app.loadQuoteById(rand)
+                } while (opt == null)
+                currentQuote = opt
+                updateUI()
+                activity.runOnUiThread {
+                    nextButton.showProgress(false)
+                    nextButton.isEnabled = true
+                }
+            }catch (e: Exception) {
+                activity.runOnUiThread {
+                    nextButton.showProgress(false)
+                    nextButton.isEnabled = true
+                }
+                updateUI()
+                app.showError(activity, e, getString(R.string.quote_error_text))
             }
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateUI() {
         if(currentQuote == null)
             return
@@ -130,6 +145,32 @@ class FragmentRandomQuotes : Fragment() {
             if (isVisibleToUser)
                 updateUI()
         }catch (e: Exception){}
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.toolbar_update_last_option -> thread(true) { app.last = app.updateLast() }
+            R.id.toolbar_jump_to_quote -> {
+                val view = layoutInflater.inflate(R.layout.jtq_layout, null)
+                AlertDialog.Builder(activity).setTitle(R.string.jtq_title).setView(view).setPositiveButton(R.string.jump_title, { di, _ ->
+                    val field = view.findViewById<EditText>(R.id.jtq_field)
+                    if(field.text.isNotBlank()) {
+                        val id = field.text.toString().toIntOrNull() ?: return@setPositiveButton
+                        with(activity) {
+                            if (viewPager.currentItem != navigationFragments[0].id) {
+                                select(navigationFragments[0])
+                                bottomNavigationView.selectedItemId = navigationFragments[0].navigation
+                            }
+                            val fragment = navigationFragments[0].fragment as FragmentQuotes
+                            fragment.currentQuoteId = id
+                            fragment.loadCurrent()
+                        }
+                    }
+                }).create().show()
+                return true
+            }
+        }
+        return false
     }
 
 

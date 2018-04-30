@@ -19,6 +19,17 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+        <activity android:name=".QuoteViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" android:host="bash.im" />
+                <data android:scheme="http" android:host="bash.im" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

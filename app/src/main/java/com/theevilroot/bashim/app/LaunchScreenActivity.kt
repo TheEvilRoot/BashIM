@@ -1,12 +1,8 @@
 package com.theevilroot.bashim.app
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
-import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -16,12 +12,6 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.io.File
 import kotlin.concurrent.thread
-import org.apache.commons.lang.exception.ExceptionUtils
-import android.R.attr.label
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context.CLIPBOARD_SERVICE
-
 
 
 class LaunchScreenActivity: AppCompatActivity() {
@@ -57,28 +47,13 @@ class LaunchScreenActivity: AppCompatActivity() {
                     runOnUiThread { startActivity(Intent(this, QuotesActivity::class.java)); finish() }
                 }
             }catch (e: Exception) {
-                runOnUiThread { showError(e) }
+                runOnUiThread { app.showError(this, e, getString(R.string.load_error_text), fatal = true) }
                 file.delete()
             }
         })
 
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun showError(e: Exception) {
-        errorView.setOnClickListener {
-            AlertDialog.Builder(this).setMessage(ExceptionUtils.getFullStackTrace(e)).setPositiveButton("Скопировать", {di, i ->
-                val clipboard = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("tracktrace", ExceptionUtils.getFullStackTrace(e))
-                clipboard.primaryClip = clip
-            }).create().show()
-        }
-        errorView.text = "При загрузке приложения произошла ошибка.\nПопробуйте перезапустить приложение, если ошибка появится и впредь, то отпрвьте ~этот текст~ в раздел Репортов в HokeyApp"
-        errorView.visibility = View.VISIBLE
-        progressBar.isIndeterminate = false
-        progressBar.progress = 100
-        e.printStackTrace()
-    }
 
     private fun loadFile(file: File): String {
         return file.readText()

@@ -36,7 +36,7 @@ class FavoriteQuotesAdapter(val activity: QuotesActivity,val fragment: FragmentF
             removeButton.setOnClickListener {
                 if(activity.app.favorites.any { it.id == item.id }) {
                     activity.app.favorites.remove(item)
-                    fragment.updateUI(false)
+                    fragment.updateUI()
                 }
             }
 

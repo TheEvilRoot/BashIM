@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
 import com.theevilroot.bashim.app.*
 
 class FragmentFavorites : Fragment() {
@@ -22,23 +24,23 @@ class FragmentFavorites : Fragment() {
             favoriteList = findViewById(R.id.favorite_quotes_list)
             favoriteTip = findViewById(R.id.favorite_tip)
         }
-        updateUI(true)
+        updateUI()
         return view
     }
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         try {
             if (isVisibleToUser)
-                updateUI(true)
+                updateUI()
         }catch (e: Exception){}
     }
 
-    fun updateUI(animate: Boolean) {
+    fun updateUI() {
         Log.i("qweqweqeqwe", activity.app.favorites.size.toString())
         activity.runOnUiThread {
             favoriteList.adapter = null
             if(activity.app.favorites.isEmpty()) {
-                favoriteTip.text = "Сейчас у вас нет понравившихся цитат.Нажмите на сердечко в левом нижнем углу, что бы добавить понравившуюся цитату"
+                favoriteTip.text = getString(R.string.no_favotites_text)
                 favoriteTip.visibility = View.VISIBLE
                 return@runOnUiThread
             }else{
@@ -54,5 +56,15 @@ class FragmentFavorites : Fragment() {
             frg.activity = activity
             return frg
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.toolbar_search -> {
+                Toast.makeText(activity, "Search", Toast.LENGTH_LONG).show()
+                return true
+            }
+        }
+        return false
     }
 }

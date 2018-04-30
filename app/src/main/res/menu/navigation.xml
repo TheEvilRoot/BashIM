@@ -9,12 +9,6 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/navigation_abyss_top"
-        android:icon="@drawable/lumx"
-        android:title="@string/abyss_top_title"
-        app:showAsAction="always" />
-
-    <item
         android:id="@+id/navigation_random_quotes"
         android:icon="@drawable/comment_text_multiple_outline"
         android:title="@string/random_quotes_title"

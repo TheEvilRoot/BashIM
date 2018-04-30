@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/jtq_tooltim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="In range of 1 to %1$d"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+    <EditText
+        android:id="@+id/jtq_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+</LinearLayout>
