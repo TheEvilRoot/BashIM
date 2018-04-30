@@ -36,7 +36,6 @@ class FragmentFavorites : Fragment() {
     }
 
     fun updateUI() {
-        Log.i("qweqweqeqwe", activity.app.favorites.size.toString())
         activity.runOnUiThread {
             favoriteList.adapter = null
             if(activity.app.favorites.isEmpty()) {

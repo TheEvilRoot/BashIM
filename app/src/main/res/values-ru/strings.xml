@@ -9,4 +9,14 @@
     <string name="error_title">Ошибка!</string>
     <string name="no_favotites_text">Сейчас у вас нет понравившихся цитат.Нажмите на сердечко в левом нижнем углу, что бы добавить понравившуюся цитату</string>
     <string name="pages_error">Невозможно загрузить страницы. Проверьте ваше интернет соениение</string>
+    <string name="jump_to_story">Перейти к</string>
+    <string name="last_quote">Это последняя цитата!</string>
+    <string name="first_quote">Это первая цитата!</string>
+    <string name="jtq_title">Введите ID цитаты</string>
+    <string name="invalid_quote_id">Некорректный ID</string>
+    <string name="like">Понравилось</string>
+    <string name="share">Поделиться</string>
+    <string name="already_favorite">Уже добавлено</string>
+    <string name="jump_title">Перейти</string>
+    <string name="jtq_hint">Число от 1 до %1$d</string>
 </resources>

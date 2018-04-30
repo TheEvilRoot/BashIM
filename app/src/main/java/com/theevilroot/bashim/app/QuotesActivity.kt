@@ -62,7 +62,7 @@ class QuotesActivity : AppCompatActivity() {
         super.onStop()
         val file = File(filesDir, "simplebash.json")
         val json = JsonObject()
-        json.addProperty("lastQuote", 1)
+        json.addProperty("lastQuote", (navigationFragments[0].fragment as FragmentQuotes).currentQuoteId)
         json.addProperty("lastTab", viewPager.currentItem)
         val arr = JsonArray()
         app.favorites.map {
