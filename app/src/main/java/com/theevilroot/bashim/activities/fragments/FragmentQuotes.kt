@@ -90,12 +90,14 @@ class FragmentQuotes: TheFragment(), CallbackListener {
     private fun loadQuotes() {
         if(activity.app.session.lastID < 0) {
             activity.app.session.requestLastIDAsync(activity, {
-                if (!it) {
-                    Toast.makeText(context, "Unable to load last quote ID", Toast.LENGTH_SHORT).show()
-                    if(!activity.app.quotes.last().isShowMore())
-                        putShowMore()
-                } else {
-                    nextStep()
+                activity.runOnUiThread {
+                    if (!it) {
+                        Toast.makeText(context, "Unable to load last quote ID", Toast.LENGTH_SHORT).show()
+                        if (activity.app.quotes.isEmpty() || !activity.app.quotes.last().isShowMore())
+                            putShowMore()
+                    } else {
+                        nextStep()
+                    }
                 }
             })
         }else{
