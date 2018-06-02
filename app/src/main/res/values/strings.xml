@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BashIM</string>
+    <string name="quotes_title">BashIM</string>
+    <string name="settings_title">Settings</string>
+    <string name="entry1">Some entry [1]</string>
+    <string name="favorite_quotes_title">Любимые цитаты</string>
+    <string name="preferences_title">Настройки</string>
+    <string name="about_title">О Проекте</string>
+    <string name="logout_title">Выйти</string>
+</resources>
