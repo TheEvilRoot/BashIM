@@ -14,7 +14,7 @@ import java.util.*
 import android.net.NetworkInfo
 import android.net.ConnectivityManager
 
-
+const val BACKEND_URL = "http://192.168.0.199/Backend"
 
 fun parseInt(str: String, default: Int): Int = try{ str.toIntOrNull() ?: default } catch (e: Exception) { default }
 fun parseLong(str: String, default: Long): Long = try{ str.toLongOrNull() ?: default } catch (e: Exception) { default }

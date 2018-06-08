@@ -10,3 +10,4 @@ captures/
 *.properties
 *.pro
 gradle/
+Key.java

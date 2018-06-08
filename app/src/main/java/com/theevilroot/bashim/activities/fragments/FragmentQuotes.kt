@@ -113,6 +113,7 @@ class FragmentQuotes: TheFragment(), CallbackListener {
         }
     }
 
+    @Synchronized
     override fun callback(type: CallbackListener.CallbackType, data: Bundle, quote: IQuote?) {
         Log.i("CALLBACK", type.name)
         when (type) {

@@ -9,10 +9,21 @@ import com.theevilroot.bashim.objects.SettingEntryHolder
 
 class SettingMenuAdapter: RecyclerView.Adapter<SettingEntryHolder>() {
 
-    private var entries: List<SettingEntry> = emptyList()
+    private var entries: ArrayList<SettingEntry> = ArrayList()
 
     fun setEntries(e: List<SettingEntry>) {
-        this.entries = e
+        this.entries.clear()
+        this.entries.addAll(e)
+        notifyDataSetChanged()
+    }
+
+    fun addEntry(vararg e: SettingEntry) {
+        this.entries.addAll(e)
+        notifyDataSetChanged()
+    }
+
+    fun clearEntries() {
+        this.entries.clear()
         notifyDataSetChanged()
     }
 
